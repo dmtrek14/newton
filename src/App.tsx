@@ -15,9 +15,8 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { FaBell } from "react-icons/fa";
 import { FiMenu, FiSearch } from "react-icons/fi";
-import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
+import { HiOutlineMoon, HiOutlineSun, HiBell } from "react-icons/hi";
 import Sidebar from "./components/Sidebar/";
 
 
@@ -74,12 +73,13 @@ function App() {
           </InputGroup>
           <Flex align="center">
             <IconButton 
+              colorScheme={isDark ? "yellow" : "blue"}
               aria-label="Toggle theme"
-              icon={isDark ? <HiOutlineSun /> : <HiOutlineMoon />}
+              icon={isDark ? <HiOutlineSun /> : <HiOutlineMoon  />}
               onClick={toggleColorMode}
               size="sm"
             />
-            <Icon color="gray.600" _dark={{color: "gray.400"}}  as={FaBell} cursor="pointer" ml="4" />
+            <Icon color="gray.600" _dark={{color: "gray.400"}}  as={HiBell} cursor="pointer" ml="4" />
             <Avatar
               ml="4"
               size="sm"
