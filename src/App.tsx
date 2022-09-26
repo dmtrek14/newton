@@ -3,19 +3,27 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { 
   Box,
   Flex,
+  Button,
   Avatar,
   Icon,
+  Input,
   IconButton,
+  InputRightElement,
+  InputGroup,
   Drawer,
   DrawerContent,
   DrawerOverlay, 
-  Input,
-  InputGroup,
-  InputLeftElement,
+  Spacer,
+  Stack,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Heading,
   useDisclosure
 } from "@chakra-ui/react";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { FiMenu, FiSearch } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 import { HiOutlineMoon, HiOutlineSun, HiBell } from "react-icons/hi";
 import Sidebar from "./components/Sidebar/";
 
@@ -65,13 +73,8 @@ function App() {
             icon={<FiMenu />}
             size="sm"
           />
-           <InputGroup w="96" display={{ base: "none", md: "flex" }} bg="gray.50" _dark={{ bg: "gray.700" }}>
-            <InputLeftElement color="gray.700" _dark={{color: "white"}} >
-              <FiSearch />
-            </InputLeftElement>
-            <Input placeholder="Search for something..." color="gray.700" _dark={{color: "white"}} />
-          </InputGroup>
-          <Flex align="center">
+          <Spacer />
+          <Flex align="center" justify="center">
             <IconButton 
               colorScheme={isDark ? "yellow" : "blue"}
               aria-label="Toggle theme"
@@ -90,7 +93,28 @@ function App() {
           </Flex>
         </Flex>  
         <Box as="main" p="4" bg="white" _dark={{ bg: "gray.600" }} minH="93vh">
-          <h1>Welcome to newton</h1>
+          <Stack spacing={4}>
+            <Heading as='h1'>Welcome to newton</Heading>
+            <InputGroup>
+              <Input id="greet-input"
+               onChange={(e) => setName(e.currentTarget.value)}
+               placeholder="Enter a name..."
+              />
+              <InputRightElement width='4.5rem'>
+                <Button size='sm' colorScheme="red" onClick={() => greet()}>Greet</Button>
+              </InputRightElement>
+            </InputGroup>
+            {/* <p>{greetMsg}</p> */}
+            {greetMsg &&
+              <Alert status='info'>
+              <AlertIcon />
+              <AlertTitle>Greetings!</AlertTitle>
+              <AlertDescription>{greetMsg}</AlertDescription>
+            </Alert>
+            }
+          </Stack>
+
+          
         </Box>
       </Box>
     </Box>
