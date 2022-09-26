@@ -101,12 +101,11 @@ function App() {
                placeholder="Enter a name..."
               />
               <InputRightElement width='4.5rem'>
-                <Button size='sm' colorScheme="red" onClick={() => greet()}>Greet</Button>
+                <Button size='sm' colorScheme="blue" onClick={() => greet()}>Greet</Button>
               </InputRightElement>
             </InputGroup>
-            {/* <p>{greetMsg}</p> */}
             {greetMsg &&
-              <Alert status='info'>
+              <Alert status='info' variant='left-accent'>
               <AlertIcon />
               <AlertTitle>Greetings!</AlertTitle>
               <AlertDescription>{greetMsg}</AlertDescription>
