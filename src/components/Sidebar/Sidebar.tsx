@@ -5,6 +5,7 @@ import {
     Text,
   } from "@chakra-ui/react";
   import { MdHome } from "react-icons/md";
+  import { HiCode, HiOutlineTranslate } from "react-icons/hi";
   import NavItem from '../NavItem/';
 
 
@@ -22,7 +23,7 @@ const Sidebar = (props) => {
         overflowX="hidden"
         overflowY="auto"
         bg="white"
-        _dark={{ bg: "gray.800" }}
+        _dark={{ bg: "gray.700" }}
         border
         color="inherit"
         borderRightWidth="1px"
@@ -33,6 +34,7 @@ const Sidebar = (props) => {
                 <Text
                     fontSize="2xl"
                     ml="2"
+                    //color="white"
                     color="brand.500"
                     _dark={{ color: "white" }}
                     fontWeight="semibold"
@@ -45,9 +47,12 @@ const Sidebar = (props) => {
                 as="nav"
                 fontSize="sm"
                 color="gray.600"
+                _dark={{ color: "white" }}
                 aria-label="Main Navigation"
             >
                 <NavItem icon={MdHome}>Home</NavItem>
+                <NavItem icon={HiCode}>Path variables</NavItem>
+                <NavItem icon={HiOutlineTranslate}>Fonts</NavItem>
             </Flex>
         </Box>
     );

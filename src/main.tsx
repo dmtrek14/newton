@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme, ColorModeScript } from '@chakra-ui/react'
 
 const colors = {
   brand: {
@@ -28,6 +28,7 @@ const theme = extendTheme({ colors, config });
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
+    <ColorModeScript initialColorMode="dark"/>
       <App />
     </ChakraProvider>   
   </React.StrictMode>

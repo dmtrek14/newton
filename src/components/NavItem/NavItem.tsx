@@ -19,11 +19,11 @@ const NavItem = (props) => {
         py="3"
         cursor="pointer"
         color="inherit"
-        _dark={{ color: "gray.400" }}
+         _dark={{ color: "gray.400" }}
         _hover={{
-          bg: "gray.100",
+          bg: "gray.900",
           _dark: { bg: "gray.900" },
-          color: "gray.900",
+          color: "gray.100",
         }}
         role="group"
         fontWeight="semibold"
