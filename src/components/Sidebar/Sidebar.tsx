@@ -65,7 +65,9 @@ const Sidebar = (props) => {
                 <NavItem icon={FaFont}>
                     <Link to="/fonts">Fonts</Link>     
                 </NavItem>
-                <NavItem icon={IoColorPaletteSharp}>Application Themes</NavItem>
+                <NavItem icon={IoColorPaletteSharp}>
+                    <Link to="/themes">Application Themes</Link>
+                </NavItem>
                 <NavItem icon={HiCode} onClick={configs.onToggle}>
                     Configs
                     <Icon

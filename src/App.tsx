@@ -5,6 +5,7 @@ import Layout from "./components/Layout"
 import Home from "./Routes/Home/Index"
 import Fonts from "./Routes/Fonts"
 import Variables from "./Routes/Variables"
+import Themes from "./Routes/Themes"
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Route index element={<Home />} />
       <Route path="fonts" element={<Fonts />} />
       <Route path="variables" element={<Variables />} />
+      <Route path="themes" element={<Themes />} />
       {/* Using path="*"" means "match anything", so this route
             acts like a catch-all for URLs that we don't have explicit
             routes for. */}
