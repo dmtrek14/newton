@@ -31,6 +31,8 @@ import Sidebar from "./components/Sidebar/";
 function App() {
   const sidebar = useDisclosure();
   const [greetMsg, setGreetMsg] = useState("");
+  const [env, setEnv] = useState(null);
+  const [fonts, setFonts] = useState(null);
   const [name, setName] = useState("");
   const { colorMode, toggleColorMode } = useColorMode(); 
   const isDark = colorMode === "dark";
@@ -39,6 +41,16 @@ function App() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     setGreetMsg(await invoke("greet", { name }));
   }
+
+  async function getEnv(){
+    setEnv(await invoke("get_env"));
+  }
+
+  async function getFonts(){
+    setFonts(await invoke("get_fonts"))
+  }
+
+  //console.log(env)
 
   return (
     <Box as="section" bg="gray.50" _dark={{ bg: "gray.700" }} minH="100vh">
@@ -111,9 +123,30 @@ function App() {
               <AlertDescription>{greetMsg}</AlertDescription>
             </Alert>
             }
+            <hr/>
+            <Heading as='h2'>Get Env</Heading>
+            <Button size='sm' colorScheme="blue" onClick={() => getEnv()}>Get env</Button>
+            <div>
+            {
+                env &&
+                env.map((v)=> {
+                  return <p>{v}</p>
+                })
+              }
+            </div>
+            <hr/>
+            <Heading as='h2'>Get Fonts</Heading>
+            <Button size='sm' colorScheme="blue" onClick={() => getFonts()}>Get fonts</Button>
+            <div>
+            {
+                fonts &&
+                fonts.map((v)=> {
+                  return <p>{v}</p>
+                })
+              }
+            </div>
           </Stack>
-
-          
+   
         </Box>
       </Box>
     </Box>

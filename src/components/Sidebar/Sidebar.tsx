@@ -55,7 +55,7 @@ const Sidebar = (props) => {
                 aria-label="Main Navigation"
             >
                 <NavItem icon={MdHome}>Home</NavItem>
-                <NavItem icon={IoCogOutline}>Path variables</NavItem>
+                <NavItem icon={IoCogOutline}>Env variables</NavItem>
                 <NavItem icon={FaFont}>Fonts</NavItem>
                 <NavItem icon={IoColorPaletteSharp}>Application Themes</NavItem>
                 <NavItem icon={HiCode} onClick={configs.onToggle}>
