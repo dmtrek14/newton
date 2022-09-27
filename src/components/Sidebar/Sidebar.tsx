@@ -1,4 +1,6 @@
 import React from 'react';
+import { Routes, Route, Outlet, Link } from "react-router-dom";
+
 import {
     Box,
     Flex,
@@ -10,7 +12,7 @@ import {
   import { MdHome, MdKeyboardArrowRight } from "react-icons/md";
   import { FaFont } from "react-icons/fa";
   import { IoColorPaletteSharp, IoCogOutline } from "react-icons/io5";
-  import { HiCode, HiOutlineTranslate, HiColorSwatch } from "react-icons/hi";
+  import { HiCode } from "react-icons/hi";
   import NavItem from '../NavItem/';
 
 
@@ -18,22 +20,22 @@ const Sidebar = (props) => {
     const configs = useDisclosure();
     return (
         <Box
-        as="nav"
-        pos="fixed"
-        top="0"
-        left="0"
-        zIndex="sticky"
-        h="full"
-        pb="10"
-        overflowX="hidden"
-        overflowY="auto"
-        bg="white"
-        _dark={{ bg: "gray.700" }}
-        border
-        color="inherit"
-        borderRightWidth="1px"
-        w="60"
-        {...props}
+            as="nav"
+            pos="fixed"
+            top="0"
+            left="0"
+            zIndex="sticky"S
+            h="full"
+            pb="10"
+            overflowX="hidden"
+            overflowY="auto"
+            bg="white"
+            _dark={{ bg: "gray.700" }}
+            border
+            color="inherit"
+            borderRightWidth="1px"
+            w="60"
+            {...props}
       >
             <Flex px="4" py="5" align="center">
                 <Text
@@ -54,9 +56,15 @@ const Sidebar = (props) => {
                 _dark={{ color: "white" }}
                 aria-label="Main Navigation"
             >
-                <NavItem icon={MdHome}>Home</NavItem>
-                <NavItem icon={IoCogOutline}>Env variables</NavItem>
-                <NavItem icon={FaFont}>Fonts</NavItem>
+                <NavItem icon={MdHome}>
+                    <Link to="/">Home</Link>
+                </NavItem>
+                <NavItem icon={IoCogOutline}>
+                    <Link to="/variables">Env variables</Link>
+                </NavItem>
+                <NavItem icon={FaFont}>
+                    <Link to="/fonts">Fonts</Link>     
+                </NavItem>
                 <NavItem icon={IoColorPaletteSharp}>Application Themes</NavItem>
                 <NavItem icon={HiCode} onClick={configs.onToggle}>
                     Configs

@@ -1,155 +1,25 @@
-import React, {useState}  from "react";
-import { invoke } from "@tauri-apps/api/tauri";
-import { 
-  Box,
-  Flex,
-  Button,
-  Avatar,
-  Icon,
-  Input,
-  IconButton,
-  InputRightElement,
-  InputGroup,
-  Drawer,
-  DrawerContent,
-  DrawerOverlay, 
-  Spacer,
-  Stack,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Heading,
-  useDisclosure
-} from "@chakra-ui/react";
-import { useColorMode } from "@chakra-ui/color-mode";
-import { FiMenu } from "react-icons/fi";
-import { HiOutlineMoon, HiOutlineSun, HiBell } from "react-icons/hi";
-import Sidebar from "./components/Sidebar/";
+import React  from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Layout from "./components/Layout"
+import Home from "./Routes/Home/Index"
+import Fonts from "./Routes/Fonts"
+import Variables from "./Routes/Variables"
 
 
 function App() {
-  const sidebar = useDisclosure();
-  const [greetMsg, setGreetMsg] = useState("");
-  const [env, setEnv] = useState(null);
-  const [fonts, setFonts] = useState(null);
-  const [name, setName] = useState("");
-  const { colorMode, toggleColorMode } = useColorMode(); 
-  const isDark = colorMode === "dark";
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
-  async function getEnv(){
-    setEnv(await invoke("get_env"));
-  }
-
-  async function getFonts(){
-    setFonts(await invoke("get_fonts"))
-  }
-
-  //console.log(env)
-
   return (
-    <Box as="section" bg="gray.50" _dark={{ bg: "gray.700" }} minH="100vh">
-      <Sidebar display={{ base: "none", md: "unset" }} />
-      <Drawer
-        isOpen={sidebar.isOpen}
-        onClose={sidebar.onClose}
-        placement="left"
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <Sidebar w="full" borderRight="none" />
-        </DrawerContent>
-      </Drawer>
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
-        <Flex
-          as="header"
-          align="center"
-          justify="space-between"
-          w="full"
-          px="4"
-          bg="white"
-           _dark={{ bg: "gray.800" }}
-          borderBottomWidth="1px"
-          color="inherit"
-          h="14"
-        >
-          <IconButton
-            aria-label="Menu"
-            display={{ base: "inline-flex", md: "none" }}
-            onClick={sidebar.onOpen}
-            icon={<FiMenu />}
-            size="sm"
-          />
-          <Spacer />
-          <Flex align="center" justify="center">
-            <IconButton 
-              colorScheme={isDark ? "yellow" : "blue"}
-              aria-label="Toggle theme"
-              icon={isDark ? <HiOutlineSun /> : <HiOutlineMoon  />}
-              onClick={toggleColorMode}
-              size="sm"
-            />
-            <Icon color="gray.600" _dark={{color: "gray.400"}}  as={HiBell} cursor="pointer" ml="4" />
-            <Avatar
-              ml="4"
-              size="sm"
-              name="testUser"
-              src="https://avatars.githubusercontent.com/u/3666105?v=4"
-              cursor="pointer"
-            />
-          </Flex>
-        </Flex>  
-        <Box as="main" p="4" bg="white" _dark={{ bg: "gray.600" }} minH="93vh">
-          <Stack spacing={4}>
-            <Heading as='h1'>Welcome to newton</Heading>
-            <InputGroup>
-              <Input id="greet-input"
-               onChange={(e) => setName(e.currentTarget.value)}
-               placeholder="Enter a name..."
-              />
-              <InputRightElement width='4.5rem'>
-                <Button size='sm' colorScheme="blue" onClick={() => greet()}>Greet</Button>
-              </InputRightElement>
-            </InputGroup>
-            {greetMsg &&
-              <Alert status='info' variant='left-accent'>
-              <AlertIcon />
-              <AlertTitle>Greetings!</AlertTitle>
-              <AlertDescription>{greetMsg}</AlertDescription>
-            </Alert>
-            }
-            <hr/>
-            <Heading as='h2'>Get Env</Heading>
-            <Button size='sm' colorScheme="blue" onClick={() => getEnv()}>Get env</Button>
-            <div>
-            {
-                env &&
-                env.map((v)=> {
-                  return <p>{v}</p>
-                })
-              }
-            </div>
-            <hr/>
-            <Heading as='h2'>Get Fonts</Heading>
-            <Button size='sm' colorScheme="blue" onClick={() => getFonts()}>Get fonts</Button>
-            <div>
-            {
-                fonts &&
-                fonts.map((v)=> {
-                  return <p>{v}</p>
-                })
-              }
-            </div>
-          </Stack>
-   
-        </Box>
-      </Box>
-    </Box>
+    <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="fonts" element={<Fonts />} />
+      <Route path="variables" element={<Variables />} />
+      {/* Using path="*"" means "match anything", so this route
+            acts like a catch-all for URLs that we don't have explicit
+            routes for. */}
+      {/* <Route path="*" element={<NoMatch />} /> */}
+    </Route>
+  </Routes>
   );
 }
 
