@@ -3,6 +3,7 @@
     windows_subsystem = "windows"
 )]
 //using
+use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 use envmnt::{ExpandOptions, ExpansionType};
 extern crate font_loader as fonts;
 use fonts::system_fonts;
@@ -37,7 +38,17 @@ fn get_fonts() -> Vec<String> {
 
 //main
 fn main() {
+    //menu
+    // here `"quit".to_string()` defines the menu item id, and the second parameter is the menu item label.
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let close = CustomMenuItem::new("close".to_string(), "Close");
+    let submenu = Submenu::new("File", Menu::new().add_item(quit).add_item(close));
+    let menu = Menu::new()
+        // .add_native_item(MenuItem::Copy)
+        // .add_item(CustomMenuItem::new("hide", "Hide"))
+        .add_submenu(submenu);
     tauri::Builder::default()
+        .menu(menu)
         .invoke_handler(tauri::generate_handler![greet, get_env, get_fonts])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
