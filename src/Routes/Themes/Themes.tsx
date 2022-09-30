@@ -9,7 +9,7 @@ const Themes = (props) => {
 
  return (
     <Stack spacing={4}>
-      <Heading as='h2'>Application Themess</Heading>
+      <Heading as='h2'>Application Themes</Heading>
     </Stack>
  )
 }

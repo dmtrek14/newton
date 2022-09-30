@@ -11,7 +11,7 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+        "all":  true
     },
     "bundle": {
       "active": true,
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "danielle-m.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -55,10 +55,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 700,
         "resizable": true,
         "title": "newton",
-        "width": 800
+        "width": 1000
       }
     ]
   }
