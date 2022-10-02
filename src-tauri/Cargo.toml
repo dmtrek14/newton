@@ -23,6 +23,7 @@ diesel = { version = "1.4.0", features = ["sqlite"] }
 dotenv = "0.10"
 libsqlite3-sys = { version = "0.9.1", features = ["bundled"] }
 diesel_migrations = { version = "1.4.0", features = ["sqlite"] }
+whoami = "1.2.3"
 
 [features]
 # by default Tauri runs in production mode

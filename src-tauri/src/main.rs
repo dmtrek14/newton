@@ -6,10 +6,10 @@
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu, App};
 use envmnt::{ExpandOptions, ExpansionType};
 use diesel_migrations::{embed_migrations, EmbedMigrations};
-use std::error::Error;
 use std::{error, string, sync::Mutex};
-// extern crate font_loader as fontsl;
-// use fontsl::system_fonts;
+use whoami::{username, realname};
+extern crate font_loader as fonts;
+use fonts::system_fonts;
 
 
 #[macro_use]
@@ -26,7 +26,9 @@ pub mod db;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+    let uname = username();
+    let rname = realname();
+    format!("Hello, {}! You've been greeted from Rust!", rname)
 }
 
 #[tauri::command]
@@ -36,15 +38,12 @@ fn get_env() -> Vec<(String, String)> {
     all_vars
 }
 
-// #[tauri::command]
-// fn get_fonts() -> Vec<String> {
-//     let sysfonts = system_fonts::query_all();
-//     let mut my_fonts: Vec<String> = Vec::new();
-//     for s in &sysfonts {
-//         my_fonts.push(s.to_string())
-//     }
-//     my_fonts
-// }
+#[tauri::command]
+fn get_system_fonts() -> Vec<String> {
+    let sysfonts = system_fonts::query_all();
+    sysfonts
+    //system_fonts::query_all()
+}
 
 #[tauri::command]
 fn fonts_list(state: tauri::State<AppState>) -> String {
@@ -99,6 +98,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
           greet, 
           get_env,
+          get_system_fonts,
           font_create,
           fonts_list
         ])
