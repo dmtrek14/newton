@@ -42,7 +42,6 @@ fn get_env() -> Vec<(String, String)> {
 fn get_system_fonts() -> Vec<String> {
     let sysfonts = system_fonts::query_all();
     sysfonts
-    //system_fonts::query_all()
 }
 
 #[tauri::command]
@@ -52,9 +51,16 @@ fn fonts_list(state: tauri::State<AppState>) -> String {
 }
 
 #[tauri::command]
-fn font_create(title: String, state: tauri::State<AppState>) -> String{
+fn font_create(title: String, installed: bool, state: tauri::State<AppState>) -> String{
   let con = state.conn.lock().unwrap();
-  db::font_create(&con, &title).to_string()
+  db::font_create(&con, &title, &installed).to_string()
+}
+
+#[tauri::command]
+fn font_remove(id: i32, state: tauri::State<AppState>) -> String{
+  let con = state.conn.lock().unwrap();
+  db::font_delete(&con, id);
+    String::from("")
 }
 
 struct AppState {
@@ -100,7 +106,8 @@ fn main() {
           get_env,
           get_system_fonts,
           font_create,
-          fonts_list
+          fonts_list,
+          font_remove
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

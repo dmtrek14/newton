@@ -11,5 +11,6 @@ pub struct DevFont {
 #[derive(Insertable, Serialize, Debug, Clone)]
 #[table_name = "dev_fonts"]
 pub struct NewDevFont<'a> {  
-    pub title: &'a str
+    pub title: &'a str,
+    pub installed: &'a bool
 }

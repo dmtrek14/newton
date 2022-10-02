@@ -16,8 +16,8 @@ pub fn establish_connection() -> SqliteConnection { // creates a new connection 
 }
 
 //fonts CRUD
-pub fn font_create(conn: &SqliteConnection, title: &str) -> String {
-    let new_font = NewDevFont { title };
+pub fn font_create(conn: &SqliteConnection, title: &str, installed: &bool) -> String {
+    let new_font = NewDevFont { title, installed };
     let font = diesel::insert_into(dev_fonts::table)
         .values(&new_font)
         .execute(conn)
@@ -32,6 +32,7 @@ pub fn fonts_list(conn: &SqliteConnection) -> String {
         .expect("Expect loading fonts");
     let serialized = serde_json::to_string(&all_fonts).unwrap();
     serialized
+   // all_fonts
 }
 
 pub fn font_update(conn: &SqliteConnection, qid: i32) -> String {
