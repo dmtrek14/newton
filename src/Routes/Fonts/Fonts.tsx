@@ -37,9 +37,15 @@ import {
   useEffect(loadSystemFonts, [])
   useEffect(loadFonts, [])
   
-  function createFont(title: string){
-    invoke('font_create', {title}).then(loadFonts);
+  function createFont(title: string, installed: boolean){
+    invoke('font_create', {title, installed}).then(loadFonts);
     notify("Dev Fonts", title + " has been added!");
+  }
+
+  function removeFont(id: number){
+    invoke('font_remove', {id}).then(() => {
+      setFonts(fonts.filter(f => f.id !== id))
+    })
   }
 
   async function notify(title: string, body: string){
@@ -53,18 +59,24 @@ import {
     }
   }
 
-  return { fonts, createFont, systemFonts}
+  return { fonts, createFont, systemFonts, removeFont}
 
  }
 
 export default function Fonts() {
   const [fontTitle, setFontTitle] = useState("")
-  const { createFont, fonts, systemFonts} = useFonts()
+  const { createFont, fonts, systemFonts, removeFont} = useFonts()
 
   const onFontTitleChange =  (e:React.ChangeEvent<HTMLSelectElement>) => setFontTitle(e.target.value)
 
   const handleAddFont = () => {
-    createFont(fontTitle);
+    createFont(fontTitle, true);
+  }
+
+  const handleRemoveFont = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.dataset.id
+    if (!id) return
+    removeFont(parseInt(id));
   }
 
  return (
@@ -73,8 +85,8 @@ export default function Fonts() {
       <FormControl>
         <FormLabel>Font</FormLabel>
         <Select placeholder='Select font' onChange={onFontTitleChange}>
-          { systemFonts.map((v) => {
-            return <option value={v}>{v}</option>
+          { systemFonts.sort().map((v) => {
+            return <option value={v} key={v}>{v}</option>
           })}
         </Select>
       </FormControl>
@@ -96,11 +108,11 @@ export default function Fonts() {
               fonts &&
               fonts.map((v)=> {
                 return (
-                  <Tr>
+                  <Tr key={v.id}>
                     <Td>{v.id}</Td>
                     <Td>{v.title}</Td>
                     <Td isNumeric>
-                      <Button colorScheme='red' size='sm'>Remove</Button>
+                      <Button colorScheme='red' size='sm' data-id={v.id}  onClick={handleRemoveFont}>Remove</Button>
                     </Td>
                   </Tr>
                 )
