@@ -24,7 +24,6 @@ const Variables = (props) => {
 
    // getEnv()
 
-    console.log(env)
 
 
  return (
