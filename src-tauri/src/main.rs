@@ -23,18 +23,16 @@ pub mod schema;
 pub mod db;
 
 //commands
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+//TODO: As app grows, the commands may need to be separated out into their own file
 #[tauri::command]
-fn greet(name: &str) -> String {
-    let uname = username();
+fn greet() -> String {
     let rname = realname();
-    format!("Hello, {}! You've been greeted from Rust!", rname)
+    rname
 }
 
 #[tauri::command]
 fn get_env() -> Vec<(String, String)> {
     let all_vars = envmnt::vars(); // returned as Vec<(String, String)>
-
     all_vars
 }
 
